@@ -1,18 +1,19 @@
+import 'package:electro_market/layout/shop_layout.dart';
 import 'package:electro_market/modules/login/cubit/cubit.dart';
 import 'package:electro_market/modules/login/cubit/states.dart';
 import 'package:electro_market/modules/register/shop_register_screen.dart';
 import 'package:electro_market/shared/components/components.dart';
+import 'package:electro_market/shared/netwok/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ShopLoginScreen extends StatelessWidget {
   ShopLoginScreen({Key? key}) : super(key: key);
 
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  var formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +21,23 @@ class ShopLoginScreen extends StatelessWidget {
       create: (context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {
-          // TODO: implement listener
           if (state is ShopLoginSuccessState) {
             if (state.loginModel.status) {
-              print(state.loginModel.status);
-              print(state.loginModel.message);
+              CacheHelper.saveData(
+                      key: 'token', value: state.loginModel.data?.token)
+                  .then((value) {
+                navigateWithNoBack(
+                  context,
+                  ShopLayout(),
+                );
+              });
               flutterToast(
                 msg: state.loginModel.message,
                 color: Colors.green,
               );
             } else {
               print(state.loginModel.message);
+              flutterToast(msg: state.loginModel.message);
             }
           }
         },

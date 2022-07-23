@@ -38,10 +38,10 @@ ThemeData darkTheme = ThemeData(
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
-    selectedItemColor: Colors.deepOrange,
+    selectedItemColor: defaultColor,
     unselectedItemColor: Colors.grey,
-    elevation: 20,
-    backgroundColor: Colors.white,
+    elevation: 20.0,
+    backgroundColor: Colors.grey,
   ),
   textTheme: const TextTheme(
       bodyText1: TextStyle(
@@ -69,7 +69,14 @@ ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.bold,
     ),
     iconTheme: IconThemeData(
-      color: Colors.white,
+      color: Colors.black,
     ),
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: defaultColor,
+    unselectedItemColor: Colors.grey,
+    elevation: 20.0,
+    backgroundColor: Colors.white,
   ),
 );

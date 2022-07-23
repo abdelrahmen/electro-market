@@ -1,5 +1,6 @@
 import 'package:electro_market/modules/login/shop_login_screen.dart';
 import 'package:electro_market/shared/components/components.dart';
+import 'package:electro_market/shared/netwok/local/cache_helper.dart';
 import 'package:electro_market/shared/styles/colors.dart';
 import 'package:electro_market/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +21,24 @@ class OnBoardingScreen extends StatelessWidget {
 
   bool isLast = false;
 
+  void submit(context) {
+    CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
+      print(value);
+      if (value) {
+        navigateWithNoBack(context, ShopLoginScreen());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         actions: [
           defaultTextButton(
-            onPressed: () {
-              navigateWithNoBack(context, ShopLoginScreen());
+            onPressed: (){
+              submit(context);
             },
             text: 'SKIP',
           ),
@@ -72,10 +83,7 @@ class OnBoardingScreen extends StatelessWidget {
                 FloatingActionButton(
                   onPressed: () {
                     if (isLast) {
-                      navigateWithNoBack(
-                        context,
-                        ShopLoginScreen(),
-                      );
+                      submit(context);
                     } else {
                       boardingController.nextPage(
                         duration: Duration(milliseconds: 800),
