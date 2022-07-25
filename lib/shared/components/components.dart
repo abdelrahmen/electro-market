@@ -30,7 +30,8 @@ Widget defaultTextButton({
 Widget defaultButton({
   required VoidCallback onPressed,
   required String text,
-}) => Container(
+}) =>
+    Container(
       width: double.infinity,
       height: 60,
       decoration: BoxDecoration(
@@ -45,7 +46,6 @@ Widget defaultButton({
             color: Colors.white,
           ),
         ),
-        
       ),
     );
 
@@ -53,13 +53,20 @@ Future<bool?> flutterToast({
   required String msg,
   Color color = Colors.red,
   ToastGravity position = ToastGravity.BOTTOM,
-
-})=> Fluttertoast.showToast(
+}) =>
+    Fluttertoast.showToast(
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
         gravity: position,
         timeInSecForIosWeb: 1,
         backgroundColor: color,
         textColor: Colors.white,
-        fontSize: 16.0
+        fontSize: 16.0);
+
+Widget mySeparator() => Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        height: 1,
+        color: Colors.grey[300],
+      ),
     );
