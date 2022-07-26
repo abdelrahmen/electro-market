@@ -17,7 +17,7 @@ class FavoritesScreen extends StatelessWidget {
         return (state is ShopLoadingGetFavoritesState)
             ? const Center(child: CircularProgressIndicator())
             : ListView.separated(
-                itemBuilder: (context, index) => buildFavoriteItem(
+                itemBuilder: (context, index) => buildListItem(
                     ShopCubit.get(context).favoritesModel?.data?.data?[index],
                     context),
                 separatorBuilder: (context, index) => mySeparator(),
@@ -29,96 +29,4 @@ class FavoritesScreen extends StatelessWidget {
     );
   }
 
-  Widget buildFavoriteItem(FavoritesData? model, context) => Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Container(
-          height: 120,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.bottomStart,
-                children: [
-                  //product image
-                  Image(
-                    image: NetworkImage('${model?.product?.image}'),
-                    width: 120,
-                    height: 120,
-                  ),
-                  //discount text
-                  if (model?.product?.discount != 0)
-                    Container(
-                      color: Colors.red,
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: const Text(
-                        'DISCOUNT',
-                        style: TextStyle(
-                          fontSize: 8,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                ],
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //product name
-                    Text(
-                      '${model?.product?.name}\n',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        //price text
-                        Text(
-                          '${model?.product?.price}',
-                          style: const TextStyle(
-                            color: defaultColor,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        //old price text
-                        if (model?.product?.discount != 0)
-                          Text(
-                            '${model?.product?.oldPrice}',
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 10,
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                          ),
-                        const Spacer(),
-                        //add or remove from favorites
-                        IconButton(
-                          onPressed: () {
-                            ShopCubit.get(context)
-                                .changeFavorites(model?.product?.id);
-                          },
-                          icon: Icon(
-                            Icons.favorite,
-                            color: ShopCubit.get(context)
-                                        .favorites[model?.product?.id] ??
-                                    false
-                                ? Colors.blue
-                                : Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-}
+  }

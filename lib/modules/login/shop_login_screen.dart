@@ -3,6 +3,7 @@ import 'package:electro_market/modules/login/cubit/cubit.dart';
 import 'package:electro_market/modules/login/cubit/states.dart';
 import 'package:electro_market/modules/register/shop_register_screen.dart';
 import 'package:electro_market/shared/components/components.dart';
+import 'package:electro_market/shared/components/constants.dart';
 import 'package:electro_market/shared/netwok/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,7 @@ class ShopLoginScreen extends StatelessWidget {
               CacheHelper.saveData(
                       key: 'token', value: state.loginModel.data?.token)
                   .then((value) {
+                    token = state.loginModel.data?.token;
                 navigateWithNoBack(
                   context,
                   ShopLayout(),
@@ -146,7 +148,7 @@ class ShopLoginScreen extends StatelessWidget {
                             const Text("don't have an account?"),
                             defaultTextButton(
                               onPressed: () {
-                                navigateTO(context, const RegisterScreen());
+                                navigateTO(context, RegisterScreen());
                               },
                               text: "register now",
                             ),

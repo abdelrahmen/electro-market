@@ -1,3 +1,6 @@
+import 'package:electro_market/layout/cubit/cubit.dart';
+import 'package:electro_market/models/favorites_model.dart';
+import 'package:electro_market/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -68,5 +71,96 @@ Widget mySeparator() => Padding(
       child: Container(
         height: 1,
         color: Colors.grey[300],
+      ),
+    );
+
+Widget buildListItem(model, context, {bool isOldPrice = true}) => Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        height: 120,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              alignment: AlignmentDirectional.bottomStart,
+              children: [
+                //product image
+                Image(
+                  image: NetworkImage('${model?.image}'),
+                  width: 120,
+                  height: 120,
+                ),
+                //discount text
+                if (model?.discount != 0 && isOldPrice)
+                  Container(
+                    color: Colors.red,
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: const Text(
+                      'DISCOUNT',
+                      style: TextStyle(
+                        fontSize: 8,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+              ],
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //product name
+                  Text(
+                    '${model?.name}\n',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      //price text
+                      Text(
+                        '${model?.price}',
+                        style: const TextStyle(
+                          color: defaultColor,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      //old price text
+                      if (model?.discount != 0 && isOldPrice)
+                        Text(
+                          '${model?.oldPrice}',
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 10,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                      const Spacer(),
+                      //add or remove from favorites
+                      IconButton(
+                        onPressed: () {
+                          ShopCubit.get(context).changeFavorites(model?.id);
+                        },
+                        icon: Icon(
+                          Icons.favorite,
+                          color: ShopCubit.get(context).favorites[model?.id] ??
+                                  false
+                              ? Colors.blue
+                              : Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
