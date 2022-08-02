@@ -18,7 +18,7 @@ class FavoritesScreen extends StatelessWidget {
             ? const Center(child: CircularProgressIndicator())
             : ListView.separated(
                 itemBuilder: (context, index) => buildListItem(
-                    ShopCubit.get(context).favoritesModel?.data?.data?[index],
+                    ShopCubit.get(context).favoritesModel?.data?.data?[index].product,
                     context),
                 separatorBuilder: (context, index) => mySeparator(),
                 itemCount:
