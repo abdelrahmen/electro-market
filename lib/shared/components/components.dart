@@ -90,7 +90,7 @@ Widget buildListItem(model, context, {bool isOldPrice = true}) => Padding(
                   width: 120,
                   height: 120,
                 ),
-                //discount text
+                // discount text
                 if (model?.discount != 0 && isOldPrice)
                   Container(
                     color: Colors.red,

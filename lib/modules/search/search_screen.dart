@@ -26,53 +26,53 @@ class SearchScreen extends StatelessWidget {
               ),
               body: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      controller: searchController,
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return 'please enter some text';
-                        }
-                      },
-                      onFieldSubmitted: (value) {
-                        SearchCubit.get(context).search(value);
-                      },
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.search),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    if (state is SearchLoadingState) LinearProgressIndicator(),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    //body of search items
-                    if (state is SearchSuccessState)
-                      Expanded(
-                        child: ListView.separated(
-                          itemBuilder: (context, index) => buildListItem(
-                              SearchCubit.get(context)
-                                  .model
-                                  ?.data
-                                  ?.data?[index],
-                              isOldPrice: false,
-                              context),
-                          separatorBuilder: (context, index) => mySeparator(),
-                          itemCount: SearchCubit.get(context)
-                                  .model
-                                  ?.data
-                                  ?.data
-                                  ?.length ??
-                              0,
-                        ),
-                      )
-                  ],
-                ),
+                // child: Column(
+                //   children: [
+                //     TextFormField(
+                //       keyboardType: TextInputType.text,
+                //       controller: searchController,
+                //       validator: (value) {
+                //         if (value?.isEmpty ?? true) {
+                //           return 'please enter some text';
+                //         }
+                //       },
+                //       onFieldSubmitted: (value) {
+                //         SearchCubit.get(context).search(value);
+                //       },
+                //       decoration: const InputDecoration(
+                //         border: OutlineInputBorder(),
+                //         prefixIcon: Icon(Icons.search),
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       height: 15,
+                //     ),
+                //     if (state is SearchLoadingState) LinearProgressIndicator(),
+                //     SizedBox(
+                //       height: 15,
+                //     ),
+                //     //body of search items
+                //     if (state is SearchSuccessState)
+                //       Expanded(
+                //         child: ListView.separated(
+                //           itemBuilder: (context, index) => buildListItem(
+                //               SearchCubit.get(context)
+                //                   .model
+                //                   ?.data
+                //                   ?.data?[index],
+                //               isOldPrice: false,
+                //               context),
+                //           separatorBuilder: (context, index) => mySeparator(),
+                //           itemCount: SearchCubit.get(context)
+                //                   .model
+                //                   ?.data
+                //                   ?.data
+                //                   ?.length ??
+                //               0,
+                //         ),
+                //       )
+                //   ],
+                // ),
               ),
             ),
           );
